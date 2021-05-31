@@ -3,104 +3,96 @@
 Creare un array di array. Ogni array figlio avrà come chiave una data in questo formato: DD-MM-YYYY es 01-01-2007 e come valore un array di post associati a quella data. Stampare ogni data con i relativi post.
 */
 
-$postsList = [
-    "20-07-2020" => [
-        "post1" => "auguri",
-        "post2" => "tantissimi auguri",
-        "post3" => "buon compleanno, sono 30!!",
-        "post4" => "augurissimi",
+$posts = [
+    '10/01/2019' => [
+        [
+            'title' => 'Vacanza',
+            'author' => 'Luca Bianchi (fidanzato)',
+            'text' => 'Oggi andiamo al mare'
+        ],
+        [
+            'title' => 'Spiaggia',
+            'author' => 'Mara Rossi (fidanzata)',
+            'text' => 'La spiaggia non si trova molto vicina alla casa'
+        ],
     ],
-    "25-12-2020" => [
-        "post1" => "auguri",
-        "post2" => "buon natale",
-        "post3" => "non mangiate troppo",
-        "post4" => "bei regali",
+    '10/02/2019' => [
+        [
+            'title' => 'Problemi',
+            'author' => 'Mara Rossi',
+            'text' => 'Tante persone si lamentano'
+        ]
     ],
-    "01-01-2021" => [
-        "post1" => "Buon anno!",
-        "post2" => "tantissimi auguri",
-        "post3" => "quest'anno speriamo bene.. ahah",
-        "post4" => "anno nuovo",
-    ]
+    '15/05/2019' => [
+        [
+            'title' => 'Nuova vacanza',
+            'author' => 'Mara Rossi',
+            'text' => 'Speriamo bene'
+        ],
+        [
+            'title' => 'Si parte',
+            'author' => 'Luca Bianchi',
+            'text' => 'Il nostro volo sta per partire'
+        ],
+        [
+            'title' => 'Arrivo',
+            'author' => 'Luca Bianchi',
+            'text' => 'Siamo arrivati a destinazione, pronti per il relax'
+        ]
+    ],
 ];
 
-//var_dump($postsList);
-//var_dump(array_keys($postsList));
+// ricavo le chiavi dell'array
+$postsList_keys = array_keys($posts);
 
-
-// ricavo le chiavi dell'array generale
-$postsList_keys = array_keys($postsList);
-
-//var_dump(array_values($postsList));
-// salvo in una variabile il valore degli array
-$totalPosts = array_values($postsList);
-
-//var_dump($totalPosts);
-
-
-// lunghezza array post
-
-$totalPosts_length = count($totalPosts);
-/*
-for ($i = 0; $i < $totalPosts_length; $i++) {
-    $singleDayPosts = $totalPosts[$i];
-
-    $singleDayPosts_mex = array_values($singleDayPosts);
-
-    var_dump($singleDayPosts_mex);
-    $singleDayPosts_mex_length = count($singleDayPosts_mex);
-
-    for ($j = 0; $j < $singleDayPosts_mex_length; $j++) {
-        $messages = $singleDayPosts_mex[$j];
-
-        echo $messages;
-    }
-
-
-
-}
-
-
+// utilizzo un ciclo foreach per stampare le chiavi che corrispondono alle date
+// poi le uso per accedere all'array ed estrapolare i post usando un ciclo for
+ 
 /*
 foreach ($postsList_keys as $key) {
-    echo $key . " " . "stampata";
-    
-}
+    echo $key;
+    $singleDayPosts = $posts[$key];
 
-for ($i = 0; $i < $totalPosts_length; $i++) {
-    $singleDayPosts = $totalPosts[$i];
-    var_dump($singleDayPosts); 
+    echo "<br>";
+
+    $singleDayPosts_len = count($singleDayPosts);
+
+    for ($i = 0; $i < $singleDayPosts_len; $i++) {
+        echo $singleDayPosts[$i]["text"];
+        echo "<br>";
+    }
+    
 }
 */
-/*
-for ($i = 0; $i < $postsList_length; $i++) {
-    $singleDayPosts = $postsList[$i];
-
-    var_dump($singleDayPosts);
-}*/
-
 
 ?>
 
+<!-- stampo il tutto in html per dare piu' ordine-->
 <div>
-<?php
-foreach ($postsList_keys as $key) {
-?>
+    <h1>Lista Post</h1>
+    <?php
+    foreach ($postsList_keys as $key) {
+    ?>
 
-    <p><strong>Data:</strong> <?php echo $key;?></p>
+        <p>Data: <strong><?php echo $key; ?></strong></p>
 
-<?php
-    foreach($totalPosts as $posts) {
+    <?php
+        $singleDayPosts = $posts[$key];
     
-?>
-
+        $singleDayPosts_len = count($singleDayPosts);
     
-            <p><?php  var_dump($posts); ?></p>
+        for ($i = 0; $i < $singleDayPosts_len; $i++) {
+    ?>
 
+            <div>
+                <h4><?php echo $singleDayPosts[$i]["title"]; ?></h4>
+                <p><?php echo $singleDayPosts[$i]["author"]; ?></p>
+                <p><?php echo $singleDayPosts[$i]["text"]; ?></p>
+            </div>
 
-<?php
+    <?php
+        }
         
     }
-}
-?>
+    ?>
 </div>
